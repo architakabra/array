@@ -1,0 +1,136 @@
+ques: two sum (leetcode)
+ans:
+class Solution{
+    public:
+    vector<int> twoSum(vector<int>& nums, int target){  // vector is an integer array
+    vector<int> arr;
+    for(int i = 0; i<= nums.size()-2; i++)
+    {
+        for(int j = i+1; j<nums.size; j++)
+         {
+           if(nums[i] + nums[j] == target)
+            {
+             arr.push_back(i);
+             arr.push_back(j);
+            }
+         }
+     }
+return arr;
+   }
+}
+*********************************************************************************************************************************************************************
+ques: two sum
+ans:
+class Solution{
+    public:
+    vector<int> twoSum(vector<int>& numbers, int target){          // vector is an integer array
+        vector<int> arr;
+        
+        int i = 0, j = numbers.size()-1;
+        while(i<=j)
+        {
+            if(numbers[i]+ numbers[j] == target)
+            {
+                arr.push_back(i+1);
+                arr.push_back(j+1);
+                break;
+            }
+            else if(numbers[i]+numbers[j] > target)
+            {
+                j--;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        return arr;
+    }
+}
+*********************************************************************************************************************************************************************
+ques: bubble sorting
+ans:
+#include<iostream>
+using namespace std;
+
+//bubble sorting 
+int main()
+{
+    int arr[5] = {5,4,3,2,1};
+    int n = 5;
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<=n-2; j++)
+        {
+            if(arr[j] > arr[j+1])
+            {
+                swap(arr[j], arr[j+1]);
+            }
+        }
+    }
+    // display sorted array
+    for(int i=0; i<n; i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+}
+*********************************************************************************************************************************************************************
+ques: insertion sorting
+ans:
+#include<iostream>
+using namespace std;
+
+//insertion sorting 
+int main()
+{
+    int arr[5] = {5,4,3,2,1};
+    int n = 5;
+    
+    for(int i=1; i<=n-1; i++)
+    {
+        for(int j=i; j>0; j--)
+        {
+            if(arr[j] < arr[j-1])
+            {
+                swap(arr[j], arr[j-1]);
+            }
+        }
+    }
+    // display sorted array
+    for(int i=0; i<=n-1; i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+}
+*********************************************************************************************************************************************************************
+ques: selection sorting
+ans:
+#include<iostream>
+using namespace std;
+
+//selection sorting 
+int main()
+{
+    int arr[5] = {5,4,3,2,1};
+    int n = 5;
+    
+    for(int i=0; i<=n-1; i++)
+    {
+        // assume
+        int min_ele_index = i;
+        for(int j=i+1; j<=n-1; j++)
+        {
+            if(arr[j] < arr[min_ele_index])
+            {
+                min_ele_index = j;
+            }
+        }
+        swap(arr[i], arr[min_ele_index]);
+    }
+    // display sorted array
+    for(int i=0; i<=n-1; i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+}
+*********************************************************************************************************************************************************************
