@@ -1,0 +1,122 @@
+ques: table of 2 using recursion
+ans:
+#include <iostream>
+using namespace std;
+
+void table(int n, int i)
+{
+    // Base case
+    if(i > 10)
+        return;
+
+    cout << n << " x " << i << " = " << n * i << endl;
+
+    // Recursive case
+    table(n, i + 1);
+}
+
+int main()
+{
+    table(2, 1);
+
+    return 0;
+}
+********************************************************************************************************************************************************************
+ques: sum of digits
+ans:
+class Solution {
+    void solve(int n, int &sum)
+    {
+        if (n == 0)
+        {
+        return;
+        }
+    int rem = n%10; //last digit
+    sum = sum+rem;
+    solve(n/10, sum);
+    }
+  public:
+    int sumOfDigits(int n) {
+        int sum = 0;
+        solve(n, sum);
+        
+        return sum;
+    }
+};
+********************************************************************************************************************************************************************
+ques: factorial
+ans:
+class Solution {
+public:
+    int factorial(int n) {
+        
+        // base case
+        if(n == 0 || n == 1)
+        {
+            return 1;
+        }
+        
+        // recursive call
+        return n * factorial(n - 1);
+    }
+};
+
+
+class Solution {
+    int fact(int n) {
+        //base case
+        if(n == 0)
+        return 1;
+        
+        // recursive call
+        return n * fact(n - 1);
+    }
+    public:
+    int factorial(int n)
+    {
+        return fact(n);
+    }
+};
+********************************************************************************************************************************************************************
+ques: binary search using recursion
+ans:
+
+#include <iostream>
+using namespace std;
+
+// binary search using recursion 
+
+int binarySearch(int arr[], int i, int j, int target) {
+    if (i > j) 
+    {
+        return -1; // Element not found
+    }
+
+    int mid = (i+j) / 2;
+
+    if (arr[mid] == target) {
+        return mid; // Element found
+    }
+    else if (target < arr[mid]) {
+        return binarySearch(arr, i, mid - 1, target); // Search left half
+    }
+    else {
+        return binarySearch(arr, mid + 1, j, target); // Search right half
+    }
+}
+
+int main() {
+    int arr[] = {2, 3, 8, 12, 16, 20};
+    int n = 6;
+    int target = 16;
+
+    int result = binarySearch(arr, 0, n - 1, target);
+
+    if (result != -1)
+        cout << "Element found at index: " << result << endl;
+    else
+        cout << "Element not found" << endl;
+
+    return 0;
+}
+********************************************************************************************************************************************************************
