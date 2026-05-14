@@ -1,0 +1,129 @@
+ques: middle of the linked list (Floyd's Cycle Algorithm)
+ans:
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        // if linked list is empty or only have 1 node
+        if (head == NULL || head -> next == NULL)
+        {
+            return head;
+        }
+        // if LL has only 2 node
+        if(head -> next -> next == NULL)
+        {
+            return head -> next;
+        }
+        ListNode*slow = head;
+        ListNode*fast = head;
+        while(fast != NULL && fast -> next != NULL)
+        {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+        }
+        return slow;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: structure of doubly linked list
+ans:
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        // if linked list is empty or only have 1 node
+        if (head == NULL || head -> next == NULL)
+        {
+            return head;
+        }
+        // if LL has only 2 node
+        if(head -> next -> next == NULL)
+        {
+            return head -> next;
+        }
+        ListNode*slow = head;
+        ListNode*fast = head;
+        while(fast != NULL && fast -> next != NULL)
+        {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+        }
+        return slow;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: to insert and print the length of the linked list
+ans:
+#include <iostream>
+using namespace std;
+
+class Node
+{
+public:
+    int v;
+    Node* next;
+  // constructor
+    Node(int val)
+    {
+        v = val;
+        next = NULL;
+    }
+};
+
+// Insert at start
+void insertAtStart(Node* &head, Node* &tail, int val)
+{
+    // Linked list is empty
+    if(head == NULL)
+    {
+        Node* n = new Node(val);
+        head = tail = n;
+    }
+    else
+    {
+        Node* n = new Node(val);
+        n->next = head;
+        head = n;
+    }
+}
+
+// Function to find length of linked list
+int LengthLL(Node* head)
+{
+    int count = 0;
+
+    while(head != NULL)
+    {
+        count++;
+        head = head->next;
+    }
+
+    return count;
+}
+
+// Function to print linked list
+void printLL(Node* head)
+{
+    while(head != NULL)
+    {
+        cout << head->v << " ";
+        head = head->next;
+    }
+    cout << endl;
+}
+
+int main()
+{
+    Node* head = NULL;
+    Node* tail = NULL;
+
+    insertAtStart(head, tail, 1);
+    insertAtStart(head, tail, 2);
+    insertAtStart(head, tail, 3);
+
+    cout << "Linked List: ";
+    printLL(head);
+
+    cout << "Length of Linked List: " << LengthLL(head);
+
+    return 0;
+}
+*******************************************************************************************************************************************************************
