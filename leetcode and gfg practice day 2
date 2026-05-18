@@ -1,0 +1,173 @@
+ques: insertion sorting (leetcode 147)
+ans:
+class Solution {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        
+        if(head == NULL || head->next == NULL)
+            return head;
+
+        ListNode* dummy = new ListNode(0);
+
+        ListNode* curr = head;
+
+        while(curr != NULL) {
+
+            ListNode* prev = dummy;
+
+            // Find correct position
+            while(prev->next != NULL && prev->next->val < curr->val) {
+                prev = prev->next;
+            }
+
+            ListNode* nextNode = curr->next;
+
+            // Insert node
+            curr->next = prev->next;
+            prev->next = curr;
+
+            curr = nextNode;
+        }
+
+        return dummy->next;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: sort an array (leetcode 912)
+ans:
+class Solution {
+public:
+
+    void merge(vector<int>& nums, int s, int e)
+    {
+        int mid = (s + e) / 2;
+
+        int len1 = mid - s + 1;
+        int len2 = e - mid;
+
+        vector<int> left(len1);
+        vector<int> right(len2);
+
+        int k = s;
+
+        for(int i = 0; i < len1; i++)
+        {
+            left[i] = nums[k++];
+        }
+
+        for(int i = 0; i < len2; i++)
+        {
+            right[i] = nums[k++];
+        }
+
+        int leftIndex = 0;
+        int rightIndex = 0;
+
+        int mainArrayIndex = s;
+
+        while(leftIndex < len1 && rightIndex < len2)
+        {
+            if(left[leftIndex] < right[rightIndex])
+            {
+                nums[mainArrayIndex++] = left[leftIndex++];
+            }
+            else
+            {
+                nums[mainArrayIndex++] = right[rightIndex++];
+            }
+        }
+
+        while(leftIndex < len1)
+        {
+            nums[mainArrayIndex++] = left[leftIndex++];
+        }
+
+        while(rightIndex < len2)
+        {
+            nums[mainArrayIndex++] = right[rightIndex++];
+        }
+    }
+
+    void mergeSort(vector<int>& nums, int s, int e)
+    {
+        // base case
+        if(s >= e)
+        {
+            return;
+        }
+
+        int mid = (s + e) / 2;
+
+        // left part sort karo
+        mergeSort(nums, s, mid);
+
+        // right part sort karo
+        mergeSort(nums, mid + 1, e);
+
+        // merge
+        merge(nums, s, e);
+    }
+
+    vector<int> sortArray(vector<int>& nums) {
+
+        int n = nums.size();
+
+        mergeSort(nums, 0, n - 1);
+
+        return nums;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: selection sort (gfg)
+ans:
+class Solution {
+  public:
+    void selectionSort(vector<int> &arr) {
+        
+        int n = arr.size();
+        
+        for(int i = 0; i < n-1; i++)
+        {
+            int minIndex = i;
+            
+            // minimum element find karo
+            for(int j = i+1; j < n; j++)
+            {
+                if(arr[j] < arr[minIndex])
+                {
+                    minIndex = j;
+                }
+            }
+            
+            // swap
+            swap(arr[i], arr[minIndex]);
+        }
+    }
+};
+*******************************************************************************************************************************************************************
+ques: insertion sort (gfg)
+ans:
+class Solution {
+  public:
+    void insertionSort(vector<int>& arr) {
+        
+        int n = arr.size();
+        
+        for(int i = 1; i < n; i++)
+        {
+            int key = arr[i];
+            int j = i - 1;
+            
+            // elements ko shift karo
+            while(j >= 0 && arr[j] > key)
+            {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            
+            // correct position pe insert
+            arr[j + 1] = key;
+        }
+    }
+};
+*******************************************************************************************************************************************************************
