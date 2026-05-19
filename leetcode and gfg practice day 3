@@ -1,0 +1,164 @@
+ques: bubble sort (gfg)
+ans:
+class Solution {
+public:
+    void bubbleSort(vector<int>& arr) {
+        int n = arr.size();
+
+        for(int i = 0; i < n - 1; i++) {
+
+            // Last i elements are already sorted
+            for(int j = 0; j < n - i - 1; j++) {
+
+                // Swap if elements are in wrong order
+                if(arr[j] > arr[j + 1]) {
+                    swap(arr[j], arr[j + 1]);
+                }
+            }
+        }
+    }
+};
+*******************************************************************************************************************************************************************
+ques: merge sort (gfg)
+ans:
+class Solution {
+  public:
+
+    void merge(vector<int>& arr, int l, int mid, int r)
+    {
+        vector<int> temp;
+
+        int left = l;
+        int right = mid + 1;
+
+        // Merge two sorted halves
+        while(left <= mid && right <= r)
+        {
+            if(arr[left] <= arr[right])
+            {
+                temp.push_back(arr[left]);
+                left++;
+            }
+            else
+            {
+                temp.push_back(arr[right]);
+                right++;
+            }
+        }
+
+        // Remaining elements from left half
+        while(left <= mid)
+        {
+            temp.push_back(arr[left]);
+            left++;
+        }
+
+        // Remaining elements from right half
+        while(right <= r)
+        {
+            temp.push_back(arr[right]);
+            right++;
+        }
+
+        // Copy back to original array
+        for(int i = l; i <= r; i++)
+        {
+            arr[i] = temp[i - l];
+        }
+    }
+
+    void mergeSort(vector<int>& arr, int l, int r)
+    {
+        // Base case
+        if(l >= r)
+        {
+            return;
+        }
+
+        int mid = (l + r) / 2;
+
+        // Sort left half
+        mergeSort(arr, l, mid);
+
+        // Sort right half
+        mergeSort(arr, mid + 1, r);
+
+        // Merge both halves
+        merge(arr, l, mid, r);
+    }
+};
+*******************************************************************************************************************************************************************
+ques: sort colors(leetcode 75)
+ans:
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+
+        int low = 0;
+        int mid = 0;
+        int high = nums.size() - 1;
+
+        while(mid <= high)
+        {
+            if(nums[mid] == 0)
+            {
+                swap(nums[low], nums[mid]);
+                low++;
+                mid++;
+            }
+
+            else if(nums[mid] == 1)
+            {
+                mid++;
+            }
+
+            else
+            {
+                swap(nums[mid], nums[high]);
+                high--;
+            }
+        }
+    }
+};
+*******************************************************************************************************************************************************************
+ques: largest no.(leetcode 179)
+ans:
+class Solution {
+public:
+
+    static bool cmp(string a, string b)
+    {
+        return a + b > b + a;
+    }
+
+    string largestNumber(vector<int>& nums) {
+
+        vector<string> arr;
+
+        // Convert int to string
+        for(int num : nums)
+        {
+            arr.push_back(to_string(num));
+        }
+
+        // Sort using custom comparator
+        sort(arr.begin(), arr.end(), cmp);
+
+        // Edge case
+        if(arr[0] == "0")
+        {
+            return "0";
+        }
+
+        string ans = "";
+
+        // Form final answer
+        for(string s : arr)
+        {
+            ans += s;
+        }
+
+        return ans;
+    }
+};
+*******************************************************************************************************************************************************************
