@@ -1,0 +1,96 @@
+ques: Kth largest element in an array (leetcode 215)
+ans:
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        
+        priority_queue<int> pq;
+
+        // push all elements into heap
+        for(int i = 0; i < nums.size(); i++) {
+            pq.push(nums[i]);
+        }
+
+        // remove k-1 largest elements
+        for(int i = 1; i < k; i++) {
+            pq.pop();
+        }
+
+        // kth largest element
+        return pq.top();
+    }
+};
+*******************************************************************************************************************************************************************
+ques: contains duplicate (leetcode 217)
+ans:
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+
+        sort(nums.begin(), nums.end());
+
+        for(int i = 1; i < nums.size(); i++) {
+
+            if(nums[i] == nums[i - 1]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: binary array sorting (gfg)
+ans:
+class Solution {
+  public:
+    void binSort(vector<int> &arr) {
+        
+        int left = 0;
+        int right = arr.size() - 1;
+        
+        while(left < right) {
+            
+            // move left while element is 0
+            while(arr[left] == 0 && left < right) {
+                left++;
+            }
+            
+            // move right while element is 1
+            while(arr[right] == 1 && left < right) {
+                right--;
+            }
+            
+            // swap
+            if(left < right) {
+                swap(arr[left], arr[right]);
+                left++;
+                right--;
+            }
+        }
+    }
+};
+*******************************************************************************************************************************************************************
+ques: chocolate distribution problem (gfg)
+ans:
+class Solution {
+  public:
+    int findMinDiff(vector<int>& a, int m) {
+        
+        // sort the array
+        sort(a.begin(), a.end());
+        
+        int ans = INT_MAX;
+        
+        // check every window of size m
+        for(int i = 0; i + m - 1 < a.size(); i++) {
+            
+            int diff = a[i + m - 1] - a[i];
+            
+            ans = min(ans, diff);
+        }
+        
+        return ans;
+    }
+};
+*******************************************************************************************************************************************************************
