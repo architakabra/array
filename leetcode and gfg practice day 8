@@ -1,0 +1,83 @@
+ques: majority element (leetcode 169)
+ans:
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int candidate = 0;
+        int count = 0;
+
+        for(int num : nums) {
+            if(count == 0) {
+                candidate = num;
+            }
+
+            if(num == candidate) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+
+        return candidate;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: missing number (leetcode 268)
+ans:
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n = nums.size();
+
+        int expectedSum = n * (n + 1) / 2;
+        int actualSum = 0;
+
+        for(int num : nums) {
+            actualSum += num;
+        }
+
+        return expectedSum - actualSum;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: Kadane's Algorithm (gfg)
+ans:
+class Solution {
+  public:
+    int maxSubarraySum(vector<int> &arr) {
+        int maxi = INT_MIN;
+        int sum = 0;
+
+        for(int i = 0; i < arr.size(); i++) {
+            sum += arr[i];
+
+            maxi = max(maxi, sum);
+
+            // Reset sum if it becomes negative
+            if(sum < 0) {
+                sum = 0;
+            }
+        }
+
+        return maxi;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: Min and Max in Array (gfg)
+ans:
+class Solution {
+  public:
+    vector<int> getMinMax(vector<int> arr) {
+        
+        int mini = INT_MAX;
+        int maxi = INT_MIN;
+        
+        for(int i = 0; i < arr.size(); i++) {
+            mini = min(mini, arr[i]);
+            maxi = max(maxi, arr[i]);
+        }
+        
+        return {mini, maxi};
+    }
+};
+*******************************************************************************************************************************************************************
