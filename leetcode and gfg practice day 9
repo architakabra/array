@@ -1,0 +1,106 @@
+ques: guess number higher or lower (leetcode 374)
+ans:
+/** 
+ * Forward declaration of guess API.
+ * @param  num   your guess
+ * @return       -1 if num is higher than the picked number
+ *                1 if num is lower than the picked number
+ *                otherwise return 0
+ * int guess(int num);
+ */
+
+class Solution {
+public:
+    int guessNumber(int n) {
+        long long low = 1, high = n;
+        
+        while (low <= high) {
+            long long mid = low + (high - low) / 2;
+            
+            int res = guess(mid);
+            
+            if (res == 0) {
+                return mid;
+            }
+            else if (res == -1) {
+                high = mid - 1;
+            }
+            else {
+                low = mid + 1;
+            }
+        }
+        
+        return -1;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: find smallest letter greater than target (leetcode 744)
+ans:
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        int low = 0, high = letters.size() - 1;
+        
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if (letters[mid] > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        
+        return letters[low % letters.size()];
+    }
+};
+*******************************************************************************************************************************************************************
+ques: binary search (gfg)
+ans:
+class Solution {
+  public:
+    bool binarySearch(vector<int> &arr, int k) {
+        int low = 0, high = arr.size() - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (arr[mid] == k) {
+                return true;
+            }
+            else if (arr[mid] < k) {
+                low = mid + 1;
+            }
+            else {
+                high = mid - 1;
+            }
+        }
+
+        return false;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: floor in a sorted array (gfg)
+ans:
+class Solution {
+  public:
+    int findFloor(vector<int>& arr, int x) {
+        int low = 0, high = arr.size() - 1;
+        int ans = -1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (arr[mid] <= x) {
+                ans = mid;
+                low = mid + 1;
+            }
+            else {
+                high = mid - 1;
+            }
+        }
+
+        return ans;
+    }
+};
+*******************************************************************************************************************************************************************
