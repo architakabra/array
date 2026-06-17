@@ -1,0 +1,100 @@
+ques: valid anagram (leetcode 242)
+ans:
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if (s.length() != t.length())
+            return false;
+
+        vector<int> freq(26, 0);
+
+        for (char ch : s)
+            freq[ch - 'a']++;
+
+        for (char ch : t)
+            freq[ch - 'a']--;
+
+        for (int count : freq) {
+            if (count != 0)
+                return false;
+        }
+
+        return true;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: intersection of two arrays (leetcode 349)
+ans:
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        unordered_set<int> s1(nums1.begin(), nums1.end());
+        unordered_set<int> result;
+
+        for (int num : nums2) {
+            if (s1.count(num)) {
+                result.insert(num);
+            }
+        }
+
+        return vector<int>(result.begin(), result.end());
+    }
+};
+*******************************************************************************************************************************************************************
+ques: union of 2 sorted arrays (gfg practice)
+ans:
+class Solution {
+public:
+    vector<int> findUnion(vector<int> &a, vector<int> &b) {
+        int i = 0, j = 0;
+        vector<int> ans;
+
+        while (i < a.size() && j < b.size()) {
+            if (a[i] <= b[j]) {
+                if (ans.empty() || ans.back() != a[i])
+                    ans.push_back(a[i]);
+                i++;
+            } else {
+                if (ans.empty() || ans.back() != b[j])
+                    ans.push_back(b[j]);
+                j++;
+            }
+        }
+
+        while (i < a.size()) {
+            if (ans.empty() || ans.back() != a[i])
+                ans.push_back(a[i]);
+            i++;
+        }
+
+        while (j < b.size()) {
+            if (ans.empty() || ans.back() != b[j])
+                ans.push_back(b[j]);
+            j++;
+        }
+
+        return ans;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: frequency of elements (gfg practice)
+ans:
+class Solution {
+public:
+    vector<vector<int>> countFreq(vector<int>& arr) {
+        unordered_map<int, int> mp;
+
+        for (int x : arr) {
+            mp[x]++;
+        }
+
+        vector<vector<int>> ans;
+
+        for (auto it : mp) {
+            ans.push_back({it.first, it.second});
+        }
+
+        return ans;
+    }
+};
+*******************************************************************************************************************************************************************
