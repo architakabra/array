@@ -1,0 +1,130 @@
+leetcode 283 - move zeroes
+ans:
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+       int j = -1;
+       for(int i = 0; i< nums.size(); i++)
+       {
+        if(nums[i] == 0)
+        {
+            j = i;
+            break;
+        }
+       }
+            if(j<0) return;
+            for(int i = j+1; i< nums.size(); i++){
+                if(nums[i] != 0)
+                {
+                    swap(nums[i], nums[j]);
+                    j++;
+                }
+                }
+        }
+};
+*******************************************************************************************************************************************************************
+ques:leetcode 169 majority element
+ans:
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+    unordered_map<int,int>mp;
+    int ans = -1;
+    for(int i = 0; i<nums.size(); i++)
+    {
+        if(mp.find(nums[i]) != mp.end())
+        {
+            mp[nums[i]]++;
+        }
+        else
+        {
+         mp[nums[i]]=1;
+        }
+    }
+    for(auto x:mp)
+    {
+        if (x.second>nums.size()/2)
+        {
+            ans = x.first;
+        }
+    }
+    return ans;
+}
+};
+*******************************************************************************************************************************************************************
+ques: max sum subarray of size k gfg practice
+ans:
+class Solution {
+  public:
+    int maxSubarraySum(vector<int>& arr, int k) {
+        // code here
+        int i = 0; // window size shrink
+        int j = 0; // window size grow
+        int max_sum = INT_MIN;
+        int curr_sum = 0;
+        int n = arr.size();
+        
+        while(j<n)
+        {
+            curr_sum = curr_sum + arr[j];
+            if(j-i+1 <k)
+            {
+                j++;
+            }
+            else if(j-i+1 == k)
+            {
+                max_sum = max(max_sum, curr_sum);
+                curr_sum = curr_sum - arr[i];
+                i++;
+                j++;
+            }
+        }
+        return max_sum;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: two sum in sorted array (gfg practice)
+ans:
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& arr, int target) {
+        int left = 0, right = arr.size() - 1;
+
+        while (left < right) {
+            int sum = arr[left] + arr[right];
+
+            if (sum == target)
+                return {left + 1, right + 1};
+
+            if (sum < target)
+                left++;
+            else
+                right--;
+        }
+
+        return {-1, -1};
+    }
+};
+*******************************************************************************************************************************************************************
+ques: leetcode 3
+ans:
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_set<char> st;
+        int left = 0, maxLen = 0;
+
+        for (int right = 0; right < s.size(); right++) {
+            while (st.find(s[right]) != st.end()) {
+                st.erase(s[left]);
+                left++;
+            }
+
+            st.insert(s[right]);
+            maxLen = max(maxLen, right - left + 1);
+        }
+
+        return maxLen;
+    }
+};
+*******************************************************************************************************************************************************************
