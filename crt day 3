@@ -1,0 +1,278 @@
+ques: leetcode 704 binary search
+ans:
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int low = 0;
+        int high = nums.size()-1;
+        int ans = -1;
+        while(low<=high)
+        {
+            int mid = (low+high)/2;
+            if(nums[mid]==target)
+            {
+                return mid;
+            }
+            else if(nums[mid]>target)
+            {
+                high = mid-1;
+            }
+            else
+            {
+                low = mid +1;
+            }
+        }
+        return ans;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: leetcode 34 
+ans:
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int first=-1;
+        int second=-1;
+        for(int i =0;i<nums.size();i++)
+        {
+            if(nums[i] == target)
+            {
+                first=-1;
+                break;
+            }
+        }
+        for(int i =0;i<nums.size();i++)
+        {
+            if(nums[i] == target)
+            {
+                second=-1;
+                break;
+            }
+    }
+return{first,second};
+}
+};
+
+
+Or
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int low=0;
+        int high=nums.size()-1;
+        int first=-1;
+        int second=-1;
+        while(low<=high)
+        {
+            int mid = (low+high)/2;
+            if(nums[mid]==target)
+            {
+                first=mid;
+                high = mid-1;
+            }
+            else if(nums[mid]>target)
+            {
+            high=mid-1;
+            }
+            else
+            {
+                low=mid+1;
+            }
+        }
+        int start = 0;
+        int end = nums.size()-1;
+        while(start<=end)
+        {
+            int mid = (start+end)/2;
+             if(nums[mid]==target)
+            {
+                second=mid;
+                start = mid+1;
+            }
+            else if(nums[mid]>target)
+            {
+                end=mid-1;
+            }
+            else
+            {
+                start=mid+1;
+            }
+        }
+        return{first,second};
+    }
+};
+*******************************************************************************************************************************************************************
+ques: leetcode 74 search a 2d matrix
+ans:
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int low=0;
+        int high=nums.size()-1;
+        int first=-1;
+        int second=-1;
+        while(low<=high)
+        {
+            int mid = (low+high)/2;
+            if(nums[mid]==target)
+            {
+                first=mid;
+                high = mid-1;
+            }
+            else if(nums[mid]>target)
+            {
+            high=mid-1;
+            }
+            else
+            {
+                low=mid+1;
+            }
+        }
+        int start = 0;
+        int end = nums.size()-1;
+        while(start<=end)
+        {
+            int mid = (start+end)/2;
+             if(nums[mid]==target)
+            {
+                second=mid;
+                start = mid+1;
+            }
+            else if(nums[mid]>target)
+            {
+                end=mid-1;
+            }
+            else
+            {
+                start=mid+1;
+            }
+        }
+        return{first,second};
+    }
+};
+
+or
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m = matrix.size();
+        int n = m ? matrix[0].size() : 0;
+        int  r = 0;
+        int  c = n - 1;
+        while (r < m && c >= 0) {
+            if (matrix[r][c] == target) {
+                return true;
+            }
+            matrix[r][c] > target ? c-- : r++;
+        }
+        return false;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: leetcode 162 find peak element
+ans:
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) {
+        int low = 0;
+        int high = nums.size() - 1;
+
+        while (low < high) 
+            {
+            int mid = (low+high) / 2;
+
+            
+            if (nums[mid] < nums[mid + 1]) 
+            {
+                low = mid + 1;
+            }
+            
+            else 
+            {
+                high = mid;
+            }
+        }
+
+        return low;
+    }
+};
+
+or
+
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) {
+        int low = 0;
+        int high = nums.size() - 1;
+
+        while (low <= high) 
+        {
+            int mid = (low+high) / 2;
+            if (nums[mid] > nums[mid-1] && nums[mid] > nums[mid+1]) 
+            {
+                return mid;
+            }
+            
+            if(nums[mid]<nums[mid+1])
+            {
+                low=mid+1;
+            }
+            if(nums[mid]<nums[mid-1])
+            {
+                high = mid -1;
+            }
+        }
+        return low;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: leetcode 69 square root(x)
+ans:
+class Solution {
+public:
+    int mySqrt(int x) {
+        int low = 1, high = x;
+        int ans = 0;
+
+        while (low <= high) {
+            long long mid = low + (high - low) / 2;
+
+            if (mid * mid == x) {
+                return mid;
+            }
+            else if (mid * mid > x) {
+                high = mid - 1;
+            }
+            else {
+                ans = mid;
+                low = mid + 1;
+            }
+        }
+
+        return ans;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: leetcode 153 find minimum in rotated sorted array
+ans:
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int low = 0;
+        int high = nums.size() - 1;
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+
+            if (nums[mid] > nums[high])
+                low = mid + 1;
+            else
+                high = mid;
+        }
+
+        return nums[low];
+    }
+};
+*******************************************************************************************************************************************************************
