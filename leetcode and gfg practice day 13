@@ -1,0 +1,78 @@
+ques: leetcode 70 - climbing stairs
+ans:
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (n <= 2) return n;
+
+        int prev2 = 1; // ways to reach step 1
+        int prev1 = 2; // ways to reach step 2
+
+        for (int i = 3; i <= n; i++) {
+            int curr = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+
+        return prev1;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: leetcode 342 - power of four
+ans:
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+        if (n <= 0) return false;
+
+        while (n % 4 == 0) {
+            n /= 4;
+        }
+
+        return n == 1;
+    }
+};
+*******************************************************************************************************************************************************************
+ques: power of numbers (gfg)
+ans:
+class Solution {
+public:
+    long long mod = 1000000007;
+
+    long long binExp(long long N, long long R) {
+        if (R == 0)
+            return 1;
+
+        long long half = binExp(N, R / 2);
+
+        if (R % 2 == 0)
+            return (half * half) % mod;
+
+        return (((half * half) % mod) * N) % mod;
+    }
+
+    long long reverseExponentiation(long long n) {
+        long long r = 0, temp = n;
+
+        while (temp > 0) {
+            r = r * 10 + temp % 10;
+            temp /= 10;
+        }
+
+        return binExp(n, r);
+    }
+};
+*******************************************************************************************************************************************************************
+ques: 1 to n without loops (gfg) 
+ans:
+class Solution {
+public:
+    void printTillN(int N) {
+        if (N == 0)
+            return;
+
+        printTillN(N - 1);
+        cout << N << " ";
+    }
+};
+*******************************************************************************************************************************************************************
