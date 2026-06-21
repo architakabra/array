@@ -1,0 +1,151 @@
+ques: leetcode 912 sort an array
+ans:
+#using bubble sort (tc-> O(n2)
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        int n = nums.size();
+        for(int i = 0; i<n; i++)
+        {
+            for(int j = 0; j<n-1-i; j++)
+            {
+                if(nums[j]>nums[j+1])
+                {
+                    swap(nums[j],nums[j+1]);
+                }
+            }
+        }
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 88 merge sorted array
+ans:
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int i = 0;     
+        int j = 0; 
+        vector<int>ans;    
+
+        while (i < m && j < n) {
+            if (nums1[i] <= nums2[j]) 
+            {
+                ans.push_back(nums1[i]);
+                i++;
+            } 
+            else 
+            {
+                ans.push_back(nums2[j]);
+                j++;
+            }
+        }
+
+        while (i<m)
+        {
+            ans.push_back(nums1[i]);
+            i++;
+        }
+        while(j<n)
+        {
+            ans.push_back(nums2[j]);
+            j++;
+        }
+        nums1=ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques: merge sort (gfg)
+ans:
+class Solution {
+	public:
+	void merge(vector<int>& arr, int left, int mid, int right) {
+		
+		int n1 = mid - left + 1;
+		int n2 = right - mid;
+		
+		// Create temp vectors
+		vector<int> L(n1), R(n2);
+		
+		// Copy data to temp vectors L[] and R[]
+		for (int i = 0; i < n1; i++)
+			L[i] = arr[left + i];
+		for (int j = 0; j < n2; j++)
+			R[j] = arr[mid + 1 + j];
+		
+		int i = 0, j = 0;
+		int k = left;
+		
+		// Merge the temp vectors back
+		// into arr[left..right]
+		while (i < n1 && j < n2) {
+			if (L[i] <= R[j]) {
+				arr[k] = L[i];
+				i++;
+			}
+			else {
+				arr[k] = R[j];
+				j++;
+			}
+			k++;
+		}
+		
+		// Copy the remaining elements of L[],
+		// if there are any
+		while (i < n1) {
+			arr[k] = L[i];
+			i++;
+			k++;
+		}
+		
+		// Copy the remaining elements of R[],
+		// if there are any
+		while (j < n2) {
+			arr[k] = R[j];
+			j++;
+			k++;
+		}
+	}
+	void mergeSort(vector<int>& arr, int left, int right) {
+		// code here
+		if (left >= right)
+			return;
+		
+		int mid = left + (right - left) / 2;
+		mergeSort(arr, left, mid);
+		mergeSort(arr, mid + 1, right);
+		merge(arr, left, mid, right);
+		
+	}
+};
+********************************************************************************************************************************************************************
+ques: quick sort gfg
+ans:
+class Solution {
+public:
+    int partition(vector<int>& arr, int low, int high) {
+        int pivot = arr[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                swap(arr[i], arr[j]);
+            }
+        }
+
+        swap(arr[i + 1], arr[high]);
+        return i + 1;
+    }
+
+    void quickSort(vector<int>& arr, int low, int high) {
+        if (low >= high) {
+            return;
+        }
+
+        int pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+};
+********************************************************************************************************************************************************************
