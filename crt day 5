@@ -1,0 +1,253 @@
+ques: leetcode 206 reverse linked list
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode*prev = NULL;
+        ListNode*next = NULL;
+        ListNode*curr = head;
+
+        while(curr!=NULL)
+        {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr= next;
+        }
+        return prev;
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 2 add two no.
+ans:
+divide s carry nikalenge orr modulo s the no. we will write
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int carry = 0;
+        ListNode*dummy = new ListNode();
+        ListNode*temp = dummy;
+        while(l1!=NULL || l2!=NULL || carry)
+        {
+            int sum = 0;
+            if(l1 != NULL)
+            {
+                sum += l1->val;
+                l1 = l1-> next;
+            }
+             if(l2 != NULL)
+            {
+                sum += l2->val;
+                l2 = l2-> next;
+            }
+            sum += carry;
+            carry = sum/10;
+            ListNode*node = new ListNode(sum%10);
+            temp->next = node;
+            temp = temp->next;
+        }
+        ListNode*result = dummy->next;
+        delete dummy;
+        return result;
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 141 linked list cycle
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        unordered_map<ListNode*,int>mp;
+        while(head != NULL)
+        {
+            if(mp.find(head) != mp.end())
+            {
+                return true;
+            }
+            mp[head]++;
+            head = head->next;
+        }
+        return false;
+    }
+};
+
+OR (using Floyd's cycle algorithm)
+
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if(head == NULL || head ->next==NULL)
+        {
+            return false;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        slow = slow->next;
+        fast = fast->next->next;
+
+        while(fast && fast->next)
+        {
+            if(slow == fast)
+            {
+                break;
+            }
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        if(slow == fast)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 142 linked list cycle
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast&&fast -> next)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow==fast)
+            {
+                break;
+            }
+        }
+            ListNode* prev = NULL;
+            if(!(fast&&fast->next)) 
+            {
+                return NULL;
+            }
+            while(head != slow)
+            {
+                head = head->next;
+                prev = slow;
+                slow = slow->next;
+            }
+            return head;
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 160 intersection of two linked lists
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        while(headA != NULL)
+        {
+            ListNode* temp = headB;
+            while(temp)
+            {
+                if(headA==temp)
+                {
+                    return temp;
+                }
+                temp = temp->next;
+            }
+            headA = headA ->next;
+        }
+        return NULL;
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 19 remove nth node from end of list
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* fast = head;
+        ListNode* slow = head;
+
+        for (int i = 0; i < n; i++) {
+            fast = fast->next;
+        }
+
+        if (fast == NULL) {
+            return head->next;
+        }
+
+        while (fast->next != NULL) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+
+        slow->next = slow->next->next;
+
+        return head;
+    }
+};
+********************************************************************************************************************************************************************
