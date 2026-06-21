@@ -1,0 +1,69 @@
+ques: leetcode 344 reverse string
+ans:
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        int left = 0;
+        int right = s.size() - 1;
+
+        while (left < right) {
+            swap(s[left], s[right]);
+            left++;
+            right--;
+        }
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 50 Pow(x,n)
+ans:
+class Solution {
+public:
+    double myPow(double x, int n) {
+        long long N = n;  // Handle INT_MIN
+
+        if (N < 0) {
+            x = 1 / x;
+            N = -N;
+        }
+
+        double ans = 1;
+
+        while (N > 0) {
+            if (N % 2 == 1) {
+                ans *= x;
+            }
+
+            x *= x;
+            N /= 2;
+        }
+
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques: sum of digits (gfg)
+ans:
+class Solution {
+  public:
+    int sumOfDigits(int n) {
+        if (n == 0)
+            return 0;
+
+        return (n % 10) + sumOfDigits(n / 10);
+    }
+};
+********************************************************************************************************************************************************************
+ques: Tower of Hanoi (gfg)
+ans:
+class Solution {
+public:
+    long long towerOfHanoi(int n, int from, int to, int aux) {
+        if (n == 0)
+            return 0;
+
+        return towerOfHanoi(n - 1, from, aux, to)
+             + 1
+             + towerOfHanoi(n - 1, aux, to, from);
+    }
+};
+********************************************************************************************************************************************************************
