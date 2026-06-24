@@ -1,0 +1,161 @@
+ques: leetcode 215 kth largest element in an array
+ans:
+((priority queue (heap))when we have to find children in binary tree left = 2*I and right = 2*i+1 and parent = (I/2) (heap is always in complete binary tree)
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int>pq;
+        for(int i = 0; i<nums.size(); i++)
+        {
+            pq.push(nums[i]);
+        }
+        int ans = 0;
+        while(!pq.empty()&&k--)
+        {
+            ans=pq.top();
+            pq.pop();
+        }
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 347 top k frequent elements
+ans:
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        map<int,int>mp;
+        for(int i = 0; i<nums.size(); i++)
+        {
+            mp[nums[i]]++;
+        }
+        priority_queue<pair<int,int>>p;
+        for(auto x:mp)
+        {
+            p.push(make_pair(x.second,x.first));
+        }
+        vector<int>ans;
+        while(k>0)
+        {
+            pair<int,int>pair=p.top();
+            ans.push_back(pair.second);
+            p.pop();
+            k--;
+        }
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 451 sort characters by frequency
+ans:
+class Solution {
+public:
+    string frequencySort(string s) {
+        unordered_map<char, int> freq;
+
+        for (char ch : s) {
+            freq[ch]++;
+        }
+
+        vector<pair<int, char>> v;
+
+        for (auto it : freq) {
+            v.push_back({it.second, it.first});
+        }
+
+        sort(v.begin(), v.end(), greater<pair<int, char>>());
+
+        string ans = "";
+
+        for (auto p : v) {
+            ans.append(p.first, p.second);
+        }
+
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 378 kth smallest element in a sorted matrix
+ans: (using min heap)
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        priority_queue<int,vector<int>,greater<int>>p;
+        int n = matrix.size();
+        int m = matrix[0].size();
+
+        for(int i = 0; i<n; i++)
+        {
+            for(int j = 0; j<m; j++)
+            {
+               p.push(matrix[i][j]);
+            }
+        }
+        int ans = 0;
+        while(k>0)
+        {
+            ans=p.top();
+            p.pop();
+            k--;
+        }
+        return ans;
+    }
+};
+
+or
+
+(using max heap)
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        priority_queue<int>p;
+        int n = matrix.size();
+        int m = matrix[0].size();
+
+        for(int i = 0; i<n; i++)
+        {
+            for(int j = 0; j<m; j++)
+            {
+               p.push(matrix[i][j]);
+               if(p.size()>k)
+               {
+                p.pop();
+               }
+            }
+        }
+        return p.top();
+    }
+};
+********************************************************************************************************************************************************************
+ques: leetcode 1337 the k weakest rows in a matrix
+ans:
+class Solution {
+public:
+    vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>p;
+        int n = mat.size();
+        int m = mat[0].size();
+
+        for(int i = 0; i<n; i++)
+        {
+            int ans = 0;
+            for(int j = 0; j<m; j++)
+            {
+                if(mat[i][j]==1)
+                {
+                    ans++;
+                }
+            }
+            p.push({ans,i});
+        }
+        vector<int>res;
+        while(k--)
+        {
+            res.push_back(p.top().second);
+            p.pop();
+        }
+        return res;
+    }
+};
+********************************************************************************************************************************************************************
