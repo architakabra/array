@@ -1,0 +1,303 @@
+ques 1: leetcode 94 binary tree inorder traversal
+ans:
+    /**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int>ans;
+    void solve(TreeNode*root)
+    {
+        if(root == NULL)
+        {
+            return;
+        }
+        solve(root->left);
+        ans.push_back(root->val);
+        solve(root->right);
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+        solve(root);
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques2: leetcode 144 binary tree preorder traversal
+ans:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int>ans;
+    void solve(TreeNode*root)
+    {
+        if(root == NULL)
+        {
+            return;
+        }
+        ans.push_back(root->val);
+        solve(root->left);
+        solve(root->right);
+    }
+    vector<int> preorderTraversal(TreeNode* root) {
+        solve(root);
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques 3: leetcode 145 binary tree postorder traversal
+ans:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int>ans;
+    void solve(TreeNode*root)
+    {
+        if(root == NULL)
+        {
+            return;
+        }
+        solve(root->left);
+        solve(root->right);
+        ans.push_back(root->val);
+    }
+    vector<int> postorderTraversal(TreeNode* root) {
+        solve(root);
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques 4: leetcode 102 binary tree level order traversal
+ans:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>>ans;
+        if(root == NULL)
+        {
+            return ans;
+        }
+        queue<TreeNode*>q;
+        q.push(root);
+        while(!q.empty())
+        {
+            vector<int>v;
+            int size = q.size();
+            while(size--)
+            {
+                TreeNode*temp = q.front();
+                q.pop();
+                v.push_back(temp->val);
+                if(temp->left!=NULL)
+                {
+                    q.push(temp->left);
+                }
+                if(temp->right!=NULL)
+                {
+                    q.push(temp->right);
+                }
+            }
+            ans.push_back(v);
+        }
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques 5: leetcode 103 binary tree zigzag level order traversal
+ans:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>>ans;
+        if(root == NULL)
+        {
+            return ans;
+        }
+        queue<TreeNode*>q;
+        q.push(root);
+
+        int f = 0;
+        while(!q.empty())
+        {
+            int size = q.size();
+            vector<int>v;
+            while(size--)
+            {
+                TreeNode*temp = q.front();
+                v.push_back(temp->val);
+                q.pop();
+                if(temp->left!=NULL)
+                {
+                    q.push(temp->left);
+                }
+                if(temp->right!=NULL)
+                {
+                    q.push(temp->right);
+                }
+            }
+            if(f==0)
+        {
+            ans.push_back(v);
+            f=1;
+        }
+            else{
+                reverse(v.begin(),v.end());
+                ans.push_back(v);
+                f=0;
+            }
+        }
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques 6: leetcode 199 binary tree right side view
+ans:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> ans;
+
+        if (root == NULL) {
+            return ans;
+        }
+
+        queue<TreeNode*> q;
+        q.push(root);
+
+        while (!q.empty()) {
+            int size = q.size();
+            vector<int>v;
+
+            while (size--) {
+                TreeNode* temp = q.front();
+                v.push_back(temp->val);
+                q.pop();
+
+                if (temp->left != NULL) {
+                    q.push(temp->left);
+                }
+
+                if (temp->right != NULL) {
+                    q.push(temp->right);
+                }
+            }
+            ans.push_back(v[v.size() - 1]);
+        }
+
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques 7 : gfg practice left view of binary tree
+ans:
+/*
+class Node {
+public:
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+*/
+
+class Solution {
+public:
+    vector<int> leftView(Node* root) {
+        vector<int> ans;
+
+        if (root == NULL) {
+            return ans;
+        }
+
+        queue<Node*> q;
+        q.push(root);
+
+        while (!q.empty()) {
+            int size = q.size();
+            vector<int>v;
+
+            while (size--) {
+                Node* temp = q.front();
+                v.push_back(temp->data);
+                q.pop();
+
+                if (temp->left != NULL) {
+                    q.push(temp->left);
+                }
+
+                if (temp->right != NULL) {
+                    q.push(temp->right);
+                }
+            }
+            ans.push_back(v[0]);
+        }
+
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
