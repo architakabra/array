@@ -1,0 +1,277 @@
+ques 1: leetcode 659 split array into consecutive subsequences
+ans:
+class Solution {
+public:
+    bool isPossible(vector<int>& nums) {
+        unordered_map<int, int> freq;
+        unordered_map<int, int> need;
+
+        for (int num : nums)
+            freq[num]++;
+
+        for (int num : nums) {
+            if (freq[num] == 0)
+                continue;
+
+            // Use current number
+            freq[num]--;
+
+            // Case 1: Extend an existing subsequence
+            if (need[num] > 0) {
+                need[num]--;
+                need[num + 1]++;
+            }
+            // Case 2: Start a new subsequence of length 3
+            else if (freq[num + 1] > 0 && freq[num + 2] > 0) {
+                freq[num + 1]--;
+                freq[num + 2]--;
+                need[num + 3]++;
+            }
+            // Case 3: Impossible
+            else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
+********************************************************************************************************************************************************************
+ques 2: leetcode 92 reverse linked list 2
+ans:
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        if (!head || left == right) {
+            return head;
+        }
+
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+
+        ListNode* prev = dummy;
+
+        // Move prev to the node before 'left'
+        for (int i = 1; i < left; i++) {
+            prev = prev->next;
+        }
+
+        ListNode* curr = prev->next;
+
+        // Reverse nodes between left and right
+        for (int i = 0; i < right - left; i++) {
+            ListNode* temp = curr->next;
+            curr->next = temp->next;
+            temp->next = prev->next;
+            prev->next = temp;
+        }
+
+        return dummy->next;
+    }
+};
+********************************************************************************************************************************************************************
+ques 3: leetcode 2074 reverse nodes in even length groups
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseEvenLengthGroups(ListNode* head) {
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+
+        ListNode* prev = dummy;
+        ListNode* curr = head;
+
+        int groupSize = 1;
+
+        while (curr) {
+            // Count actual nodes in this group
+            int count = 0;
+            ListNode* temp = curr;
+            while (temp && count < groupSize) {
+                temp = temp->next;
+                count++;
+            }
+
+            // Reverse if group length is even
+            if (count % 2 == 0) {
+                ListNode* nextGroup = temp;
+                ListNode* prevNode = nextGroup;
+                ListNode* node = curr;
+
+                for (int i = 0; i < count; i++) {
+                    ListNode* next = node->next;
+                    node->next = prevNode;
+                    prevNode = node;
+                    node = next;
+                }
+
+                ListNode* tail = curr;
+                prev->next = prevNode;
+
+                prev = tail;
+                curr = nextGroup;
+            } else {
+                // Skip odd-length group
+                for (int i = 0; i < count; i++) {
+                    prev = curr;
+                    curr = curr->next;
+                }
+            }
+
+            groupSize++;
+        }
+
+        return dummy->next;
+    }
+};
+********************************************************************************************************************************************************************
+ques 4: leetcode 2130 maximum twin sum of a linked list
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverse(ListNode* head) {
+        ListNode* prev = nullptr;
+        
+        while (head) {
+            ListNode* next = head->next;
+            head->next = prev;
+            prev = head;
+            head = next;
+        }
+        
+        return prev;
+    }
+
+    int pairSum(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        // Find the middle of the list
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // Reverse the second half
+        ListNode* second = reverse(slow);
+
+        int ans = 0;
+        ListNode* first = head;
+
+        // Calculate maximum twin sum
+        while (second) {
+            ans = max(ans, first->val + second->val);
+            first = first->next;
+            second = second->next;
+        }
+
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques 5: leetcode 2487 remove nodes from linked list
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverse(ListNode* head) {
+        ListNode* prev = nullptr;
+
+        while (head) {
+            ListNode* next = head->next;
+            head->next = prev;
+            prev = head;
+            head = next;
+        }
+
+        return prev;
+    }
+
+    ListNode* removeNodes(ListNode* head) {
+        head = reverse(head);
+
+        int maxi = head->val;
+        ListNode* curr = head;
+
+        while (curr && curr->next) {
+            if (curr->next->val < maxi) {
+                curr->next = curr->next->next;
+            } else {
+                curr = curr->next;
+                maxi = curr->val;
+            }
+        }
+
+        return reverse(head);
+    }
+};
+********************************************************************************************************************************************************************
+ques 6: leetcode 2807 insert greatest common divisors in linked list
+ans:
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    ListNode* insertGreatestCommonDivisors(ListNode* head) {
+        ListNode* curr = head;
+
+        while (curr && curr->next) {
+            int g = gcd(curr->val, curr->next->val);
+
+            ListNode* node = new ListNode(g);
+            node->next = curr->next;
+            curr->next = node;
+
+            curr = node->next;
+        }
+
+        return head;
+    }
+};
+********************************************************************************************************************************************************************
