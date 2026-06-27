@@ -1,0 +1,108 @@
+ques 1: leetcode 112 path sum
+ans:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+bool solve(TreeNode*root,int targetsum,int currsum)
+{
+    if(root==NULL)
+    {
+        return false;
+    }
+    currsum+=root->val;
+    if(root->left==NULL && root->right==NULL)
+    {
+        return targetsum==currsum;
+    }
+    int left= solve(root->left,targetsum,currsum);
+    int right=solve(root->right,targetsum,currsum);
+    return left||right;
+    }
+
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        int currsum=0;
+        bool ans=solve(root,targetSum,currsum);
+        return ans;
+    }
+};
+********************************************************************************************************************************************************************
+ques 2: leetcode 700 search in a binary search tree
+ans:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* searchBST(TreeNode* root, int val) {
+       if(root==NULL)
+       {
+        return NULL;
+       } 
+       if(root->val==val)
+       {
+        return root;
+       }
+       if(val<root->val)
+       {
+        return searchBST(root->left,val);
+       }
+
+       else
+       {
+        return searchBST(root->right,val);
+       }
+    }
+};
+********************************************************************************************************************************************************************
+ques 3: leetcode 230 kth smallest element in BST
+ans:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution 
+{
+public:
+vector<int>v;
+void inorder(TreeNode*root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    inorder(root->left);
+    v.push_back(root->val);
+    inorder(root->right);
+}
+    int kthSmallest(TreeNode* root, int k)
+    {
+        inorder(root);
+        return v[k-1];
+    }
+};
+********************************************************************************************************************************************************************
